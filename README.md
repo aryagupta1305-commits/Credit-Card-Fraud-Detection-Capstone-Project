@@ -1,31 +1,41 @@
-Project Title: Credit Card Fraud Detection Capstone Project. 
+# Credit Card Fraud Detection - Capstone Project
 
-Objective: 
-- Identify fraudulent credit card transactions using machine learning.
-- Compare multiple modeling approaches to handle severe class imbalance.
+## 📌 Project Overview
+This capstone project focuses on identifying fraudulent credit card transactions using machine learning. Since fraud detection datasets inherently suffer from severe class imbalance, the primary objective is to compare different modeling approaches and resampling techniques to effectively detect the minority class (fraud) without falsely flagging legitimate transactions.
 
-Dataset Overview:
-- The data contains anonymized credit card transactions labeled as fraud (1) or non-fraud (0).
-- The features include Time, Amount, and PCA-transformed variables V1 through V28.
-- The dataset is highly imbalanced, with fraud making up only 0.1727% of all transactions.
+## 📊 Dataset Details
+* **Features:** Contains anonymized PCA-transformed features (`V1` to `V28`), along with `Time` and `Amount`.
+* **Target Variable:** `Class` (1 for fraud, 0 for non-fraud).
+* **Imbalance Challenge:** The dataset is highly imbalanced, with fraudulent transactions making up only **0.1727%** of the entire data (492 frauds out of 284,807 transactions).
 
-Methodology:
-- Exploratory Data Analysis (EDA): Analyzes class distributions and utilizes a correlation heatmap to identify the top features correlated with the fraud class.
-- Data Preprocessing: Applies standard scaling to the Amount and Time variables before dropping the original columns.
-- Train-Test Split: Utilizes a stratified split to preserve the true fraud ratio across both training and testing datasets.
-- Handling Class Imbalance: Compares algorithmic penalization (class_weight='balanced' and scale_pos_weight) against SMOTE synthetic oversampling applied exclusively to the training set.
-- Model Training: Trains Logistic Regression, Random Forest, and XGBoost classifiers under both imbalance approaches.
+## ⚙️ Methodology & Workflow
+1. **Exploratory Data Analysis (EDA):** Visualized class distributions and used correlation heatmaps to identify the top features correlated with the fraud class (e.g., V17, V14, V12).
+2. **Data Preprocessing:** Applied standard scaling to the `Amount` and `Time` features to ensure uniformity across all independent variables.
+3. **Train-Test Split:** Used a stratified split to maintain the exact fraud-to-non-fraud ratio in both training and testing sets.
+4. **Handling Class Imbalance (Two Approaches):**
+   * **Algorithmic Penalization:** Using `class_weight='balanced'` for Logistic Regression and Random Forest, and `scale_pos_weight` for XGBoost.
+   * **Data Resampling:** Using **SMOTE** (Synthetic Minority Over-sampling Technique) exclusively on the training set to synthetically balance the classes.
 
-Evaluation & Results:
-- Models are evaluated using metrics suited for imbalanced data, specifically Precision, Recall, F1-score, ROC-AUC, and PR-AUC.
-- The XGBoost model trained with weighted classes achieved the best overall performance with a ROC-AUC of 0.9772 and a PR-AUC of 0.8655.
-- The Random Forest model trained with SMOTE achieved perfect precision (1.00) for non-fraud but struggled with precision (0.44) for the fraud class.
+## 🤖 Models Evaluated
+Three machine learning algorithms were trained and compared under both imbalance-handling approaches:
+* Logistic Regression
+* Random Forest Classifier
+* XGBoost Classifier
 
-Dependencies: The environment setup instructions should list all libraries imported in the notebook.
-- pandas
-- numpy
-- seaborn
-- matplotlib
-- scikit-learn
-- xgboost
-- imbalanced-learn   
+## 📈 Key Results & Evaluation
+Models were evaluated using metrics suited for imbalanced datasets, specifically **Precision, Recall, F1-Score, ROC-AUC, and PR-AUC**.
+
+* **Best Performing Model:** **XGBoost (weighted)** achieved the best overall balance with a **ROC-AUC of 0.9772** and a **PR-AUC of 0.8655**.
+* **SMOTE Observations:** While SMOTE improved recall for certain models, it struggled with precision (e.g., Random Forest with SMOTE achieved a precision of only 0.44 for the fraud class, leading to a higher false-positive rate).
+* Algorithmic class weighting generally outperformed SMOTE in maintaining a high Precision-Recall Area Under Curve (PR-AUC) on the unseen test set.
+
+## 🛠️ Tools & Libraries Used
+* **Programming Language:** Python
+* **Data Manipulation & Analysis:** pandas, numpy
+* **Data Visualization:** matplotlib, seaborn
+* **Machine Learning:** scikit-learn, xgboost, imbalanced-learn (SMOTE)
+
+## 📂 Repository Structure
+* `data/` - Placeholder for the dataset (add `.gitignore` if the file exceeds GitHub limits).
+* `notebooks/` - Contains the main Jupyter Notebook (`Credit_Card_Fraud_Detection_Capstone.ipynb`) with the complete code, EDA, and model training.
+* `requirements.txt` - Required Python packages and dependencies to run the notebook.
